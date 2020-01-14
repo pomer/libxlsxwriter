@@ -2393,8 +2393,11 @@ lxw_worksheet_prepare_image(lxw_worksheet *self,
     drawing_object = calloc(1, sizeof(lxw_drawing_object));
     RETURN_VOID_ON_MEM_ERROR(drawing_object);
 
+    drawing_object->edit_as = LXW_OBJECT_MOVE_DONT_SIZE;
+    if (object_props->object_position)
+        drawing_object->edit_as = object_props->object_position;
+
     drawing_object->anchor_type = LXW_ANCHOR_TYPE_IMAGE;
-    drawing_object->edit_as = LXW_ANCHOR_EDIT_AS_ONE_CELL;
     drawing_object->description = lxw_strdup(object_props->description);
     drawing_object->tip = lxw_strdup(object_props->tip);
     drawing_object->rel_index = 0;
@@ -2563,8 +2566,11 @@ lxw_worksheet_prepare_chart(lxw_worksheet *self,
     drawing_object = calloc(1, sizeof(lxw_drawing_object));
     RETURN_VOID_ON_MEM_ERROR(drawing_object);
 
+    drawing_object->edit_as = LXW_OBJECT_MOVE_AND_SIZE;
+    if (object_props->object_position)
+        drawing_object->edit_as = object_props->object_position;
+
     drawing_object->anchor_type = LXW_ANCHOR_TYPE_CHART;
-    drawing_object->edit_as = LXW_ANCHOR_EDIT_AS_ONE_CELL;
     drawing_object->description = lxw_strdup("TODO_DESC");
     drawing_object->tip = NULL;
     drawing_object->rel_index = _get_drawing_rel_index(self, NULL);
@@ -6242,6 +6248,7 @@ worksheet_insert_image_opt(lxw_worksheet *self,
         object_props->y_offset = user_options->y_offset;
         object_props->x_scale = user_options->x_scale;
         object_props->y_scale = user_options->y_scale;
+        object_props->object_position = user_options->object_position;
         object_props->url = lxw_strdup(user_options->url);
         object_props->tip = lxw_strdup(user_options->tip);
 
@@ -6429,6 +6436,7 @@ worksheet_insert_chart_opt(lxw_worksheet *self,
         object_props->y_offset = user_options->y_offset;
         object_props->x_scale = user_options->x_scale;
         object_props->y_scale = user_options->y_scale;
+        object_props->object_position = user_options->object_position;
     }
 
     /* Copy other options or set defaults. */

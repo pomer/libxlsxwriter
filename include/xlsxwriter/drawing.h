@@ -29,13 +29,6 @@ enum lxw_anchor_types {
     LXW_ANCHOR_TYPE_CHART
 };
 
-enum lxw_anchor_edit_types {
-    LXW_ANCHOR_EDIT_AS_NONE = 0,
-    LXW_ANCHOR_EDIT_AS_RELATIVE,
-    LXW_ANCHOR_EDIT_AS_ONE_CELL,
-    LXW_ANCHOR_EDIT_AS_ABSOLUTE
-};
-
 enum image_types {
     LXW_IMAGE_UNKNOWN = 0,
     LXW_IMAGE_PNG,
